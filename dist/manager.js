@@ -1,4 +1,12 @@
-let isApiSetUp = false
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var isApiSetUp = false;
 
 /**
  * @param apiKey    API Key, or object with the URL parameters. For example
@@ -28,46 +36,45 @@ let isApiSetUp = false
  *      })
  * ```
  */
-export const loadGmapApi = (options, loadCn) => {
+var loadGmapApi = exports.loadGmapApi = function (options, loadCn) {
   if (typeof document === 'undefined') {
     // Do nothing if run from server-side
-    return
+    return;
   }
   if (!isApiSetUp) {
-    isApiSetUp = true
+    isApiSetUp = true;
 
-    const googleMapScript = document.createElement('SCRIPT')
+    var googleMapScript = document.createElement('SCRIPT');
 
     // Allow options to be an object.
     // This is to support more esoteric means of loading Google Maps,
     // such as Google for business
     // https://developers.google.com/maps/documentation/javascript/get-api-key#premium-auth
-    if (typeof options !== 'object') {
-      throw new Error('options should  be an object')
+    if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) !== 'object') {
+      throw new Error('options should  be an object');
     }
 
     // libraries
     if (Array.prototype.isPrototypeOf(options.libraries)) {
-      options.libraries = options.libraries.join(',')
+      options.libraries = options.libraries.join(',');
     }
-    options['callback'] = 'vueGoogleMapsInit'
+    options['callback'] = 'vueGoogleMapsInit';
 
-    let baseUrl = 'https://maps.googleapis.com/'
+    var baseUrl = 'https://maps.googleapis.com/';
 
     if (typeof loadCn === 'boolean' && loadCn === true) {
-      baseUrl = 'https://maps.beeyun.cn/'
+      baseUrl = 'https://maps.beeyun.cn/';
     }
 
-    let url = baseUrl + 'maps/api/js?' +
-      Object.keys(options)
-        .map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(options[key]))
-        .join('&')
+    var url = baseUrl + 'maps/api/js?' + Object.keys(options).map(function (key) {
+      return encodeURIComponent(key) + '=' + encodeURIComponent(options[key]);
+    }).join('&');
 
-    googleMapScript.setAttribute('src', url)
-    googleMapScript.setAttribute('async', '')
-    googleMapScript.setAttribute('defer', '')
-    document.head.appendChild(googleMapScript)
+    googleMapScript.setAttribute('src', url);
+    googleMapScript.setAttribute('async', '');
+    googleMapScript.setAttribute('defer', '');
+    document.head.appendChild(googleMapScript);
   } else {
-    throw new Error('You already started the loading of google maps')
+    throw new Error('You already started the loading of google maps');
   }
-}
+};
