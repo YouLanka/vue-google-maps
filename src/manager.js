@@ -55,7 +55,7 @@ export const loadGmapApi = (options, loadCn) => {
     let baseUrl = 'https://maps.googleapis.com/'
 
     if (typeof loadCn === 'boolean' && loadCn === true) {
-      baseUrl = 'http://maps.youzland.com/'
+      baseUrl = 'https://maps.youzland.com/'
     }
 
     let url = baseUrl + 'maps/api/js?' +
